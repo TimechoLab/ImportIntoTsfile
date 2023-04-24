@@ -48,7 +48,6 @@ public class SqliteDataLoader implements DataLoaderInterface {
                 row.put("`017`", "1");
                 row.put("`018`", "2");
                 row.put("`019`", "3");
-                row.put("`020`", "4");
                 data.add(new Pair(timestamp, row));
             }
 
