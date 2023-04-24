@@ -23,7 +23,6 @@ public class Main {
         schemas.add(new MeasurementSchema("`017`", TSDataType.TEXT));
         schemas.add(new MeasurementSchema("`018`", TSDataType.TEXT));
         schemas.add(new MeasurementSchema("`019`", TSDataType.TEXT));
-        schemas.add(new MeasurementSchema("`020`", TSDataType.TEXT));
         DataWriter dataWriter = new DataWriter("1002_CMS_016_20211216230132_X.tsfile", "root.db.`1002`.CMS", schemas, false);
 
         dataWriter.writeData(data);
