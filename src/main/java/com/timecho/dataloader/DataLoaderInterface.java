@@ -7,5 +7,5 @@ import java.util.Map;
 import java.util.Properties;
 
 public interface DataLoaderInterface {
-    default List<Pair<Long, Map>> loadTimeSeries(Properties properties) { return null; }
+    default List<Pair<Long, Map<String, Object>>> loadTimeSeries(Properties properties) { return null; }
 }

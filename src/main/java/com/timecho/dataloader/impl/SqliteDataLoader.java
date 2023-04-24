@@ -13,14 +13,14 @@ import java.util.*;
 
 public class SqliteDataLoader implements DataLoaderInterface {
     @Override
-    public List<Pair<Long, Map>> loadTimeSeries(Properties properties) {
+    public List<Pair<Long, Map<String, Object>>> loadTimeSeries(Properties properties) {
         URL sqliteFile = this.getClass().getClassLoader().getResource(properties.getProperty("fileName"));
         String JDBCUrl = String.format("jdbc:sqlite:%s", sqliteFile.getPath());
 
         Connection connection;
         Statement statement;
 
-        List<Pair<Long, Map>> data = new ArrayList<>();
+        List<Pair<Long, Map<String, Object>>> data = new ArrayList<>();
 
         try {
             Class.forName("org.sqlite.JDBC");

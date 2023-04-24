@@ -45,8 +45,8 @@ public class DataWriter {
         }
     }
 
-    public void writeData(List<Pair<Long, Map>> alignedData) throws IOException, WriteProcessException {
-        for (Pair<Long, Map> row : alignedData) {
+    public void writeData(List<Pair<Long, Map<String, Object>>> alignedData) throws IOException, WriteProcessException {
+        for (Pair<Long, Map<String, Object>> row : alignedData) {
             Long timeStamp = row.getKey();
             Map values = row.getValue();
 

@@ -16,7 +16,7 @@ public class Main {
         dataLoader = new SqliteDataLoader();
         Properties properties = new Properties();
         properties.put("fileName", "1002_CMS_016_20211216230132_X.sqlite");
-        List<Pair<Long, Map>> data = dataLoader.loadTimeSeries(properties);
+        List<Pair<Long, Map<String, Object>>> data = dataLoader.loadTimeSeries(properties);
 
         ArrayList<MeasurementSchema> schemas = new ArrayList<>();
         schemas.add(new MeasurementSchema("`016`", TSDataType.FLOAT));
