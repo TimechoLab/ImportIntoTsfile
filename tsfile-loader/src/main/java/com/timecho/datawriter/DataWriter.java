@@ -2,6 +2,7 @@ package com.timecho.datawriter;
 
 import com.timecho.LoadCommandOptions;
 import org.apache.commons.math3.util.Pair;
+import org.apache.iotdb.commons.exception.IllegalPathException;
 import org.apache.iotdb.tsfile.exception.write.WriteProcessException;
 import org.apache.iotdb.tsfile.file.metadata.enums.TSDataType;
 import org.apache.iotdb.tsfile.fileSystem.FSFactoryProducer;
@@ -24,7 +25,7 @@ public class DataWriter {
     private final Boolean aligned;
     private final String deviceId;
 
-    public DataWriter(LoadCommandOptions options, List<MeasurementSchema> schemas, Boolean aligned) {
+    public DataWriter(LoadCommandOptions options, List<MeasurementSchema> schemas, Boolean aligned) throws IllegalPathException {
         String tsfileName = options.getTargetPath();
         String deviceId = options.getDeviceId();
 
