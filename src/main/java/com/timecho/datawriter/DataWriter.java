@@ -1,5 +1,6 @@
 package com.timecho.datawriter;
 
+import com.timecho.LoadCommandOptions;
 import org.apache.commons.math3.util.Pair;
 import org.apache.iotdb.tsfile.exception.write.WriteProcessException;
 import org.apache.iotdb.tsfile.file.metadata.enums.TSDataType;
@@ -13,17 +14,20 @@ import org.apache.iotdb.tsfile.write.schema.MeasurementSchema;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
 public class DataWriter {
     private TsFileWriter tsFileWriter;
-    private List<MeasurementSchema> schemas;
-    private Boolean aligned;
-    private String deviceId;
+    private final List<MeasurementSchema> schemas;
+    private final Boolean aligned;
+    private final String deviceId;
 
-    public DataWriter(String tsfileName, String deviceId, ArrayList<MeasurementSchema> schemas, Boolean aligned) {
+    public DataWriter(LoadCommandOptions options, List<MeasurementSchema> schemas, Boolean aligned) {
+        String tsfileName = options.getTargetPath();
+        String deviceId = options.getDeviceId();
+
         this.aligned = aligned;
         this.deviceId = deviceId;
         this.schemas = schemas;
@@ -35,7 +39,7 @@ public class DataWriter {
 
         try {
             tsFileWriter = new TsFileWriter(tsfile);
-            if (aligned) {
+            if (Boolean.TRUE.equals(aligned)) {
                 tsFileWriter.registerAlignedTimeseries(new Path(deviceId), schemas);
             } else {
                 tsFileWriter.registerTimeseries(new Path(deviceId), schemas);
@@ -48,7 +52,7 @@ public class DataWriter {
     public void writeData(List<Pair<Long, Map<String, Object>>> alignedData) throws IOException, WriteProcessException {
         for (Pair<Long, Map<String, Object>> row : alignedData) {
             Long timeStamp = row.getKey();
-            Map values = row.getValue();
+            Map<String, Object> values = row.getValue();
 
             TSRecord tsRecord = new TSRecord(timeStamp, deviceId);
             for (MeasurementSchema measurementSchema : this.schemas) {
@@ -59,7 +63,7 @@ public class DataWriter {
                     tsRecord.addTuple(getDataPoint(type, measurementId, value));
                 }
             }
-            if (aligned) {
+            if (Boolean.TRUE.equals(aligned)) {
                 tsFileWriter.writeAligned(tsRecord);
             } else {
                 tsFileWriter.write(tsRecord);
@@ -78,7 +82,7 @@ public class DataWriter {
 
     private DataPoint getDataPoint(TSDataType dataType, String measurementId, Object value) {
         switch (dataType) {
-            case TEXT: return new StringDataPoint(measurementId, Binary.valueOf((String) value));
+            case TEXT: return new StringDataPoint(measurementId, new Binary((String) value, Charset.defaultCharset()));
             case BOOLEAN: return new BooleanDataPoint(measurementId, (boolean) value);
             case INT32: return new IntDataPoint(measurementId, (int) value);
             case INT64: return new LongDataPoint(measurementId, (long) value);
