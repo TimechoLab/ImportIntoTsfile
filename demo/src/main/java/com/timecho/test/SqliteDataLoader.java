@@ -3,6 +3,8 @@ package com.timecho.test;
 import com.timecho.LoadCommandOptions;
 import com.timecho.dataloader.DataLoaderInterface;
 import org.apache.commons.math3.util.Pair;
+import org.apache.iotdb.tsfile.file.metadata.enums.TSDataType;
+import org.apache.iotdb.tsfile.write.schema.MeasurementSchema;
 
 import java.io.File;
 import java.nio.ByteBuffer;
@@ -13,6 +15,15 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SqliteDataLoader implements DataLoaderInterface {
+    public static final List<MeasurementSchema> CMS_SCHEMA = new ArrayList<>();
+
+    static {
+        CMS_SCHEMA.add(new MeasurementSchema("`016`", TSDataType.FLOAT));
+        CMS_SCHEMA.add(new MeasurementSchema("`017`", TSDataType.TEXT));
+        CMS_SCHEMA.add(new MeasurementSchema("`018`", TSDataType.TEXT));
+        CMS_SCHEMA.add(new MeasurementSchema("`019`", TSDataType.TEXT));
+    }
+
     @Override
     public List<Pair<Long, Map<String, Object>>> loadTimeSeries(LoadCommandOptions options) {
         File sqliteFile = new File(options.getSrcPath());
