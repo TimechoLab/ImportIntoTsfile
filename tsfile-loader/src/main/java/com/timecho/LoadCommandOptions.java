@@ -25,16 +25,19 @@ public class LoadCommandOptions {
     @Parameter(names = {"deviceId", "-d"}, description = "deviceId", required = true, order = 6)
     private String deviceId;
 
-    @Parameter(names = {"host", "-h"}, description = "IoTDB Host", order = 7)
+    @Parameter(names = {"import", "-i"}, description = "是否导入到 IoTDB", required = false, order = 7)
+    private boolean isImport;
+
+    @Parameter(names = {"host", "-h"}, description = "IoTDB Host", order = 8)
     private String host = "127.0.0.1";
 
-    @Parameter(names = {"port", "-p"}, description = "IoTDB Port", order = 8)
+    @Parameter(names = {"port", "-p"}, description = "IoTDB Port", order = 9)
     private int port = 6667;
 
-    @Parameter(names = {"username", "-u"}, description = "IoTDB Username", order = 9)
+    @Parameter(names = {"username", "-u"}, description = "IoTDB Username", order = 10)
     private String username = "root";
 
-    @Parameter(names = {"password", "-pw"}, description = "IoTDB Password", order = 10)
+    @Parameter(names = {"password", "-pw"}, description = "IoTDB Password", order = 11)
     private String password = "root";
 
     @Parameter
@@ -66,6 +69,10 @@ public class LoadCommandOptions {
     public String getDeviceId() throws IllegalPathException {
         PathUtils.isLegalPath(deviceId);
         return deviceId;
+    }
+
+    public boolean isImport() {
+        return isImport;
     }
 
     public String getHost() {

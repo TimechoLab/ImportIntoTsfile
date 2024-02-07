@@ -46,6 +46,10 @@ public class LoadData {
         dataWriter.writeData(schemaAndData.getData());
         dataWriter.close();
 
+        if (!options.isImport()) {
+            return;
+        }
+
         TsFileLoader.loadTsFile(options);
     }
 }
