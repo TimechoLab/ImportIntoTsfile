@@ -30,7 +30,6 @@ public class LoadData {
         }
 
         Class<?> dataLoaderClass = Class.forName(options.getLoader());
-        Method loadTimeSeries = dataLoaderClass.getMethod("loadTimeSeries", LoadCommandOptions.class);
         DataLoaderInterface dataLoader = (DataLoaderInterface) dataLoaderClass.newInstance();
         SchemaAndData schemaAndData = dataLoader.loadTimeSeries(options);
 
