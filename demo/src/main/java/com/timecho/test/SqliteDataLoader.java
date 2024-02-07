@@ -2,6 +2,7 @@ package com.timecho.test;
 
 import com.timecho.LoadCommandOptions;
 import com.timecho.dataloader.DataLoaderInterface;
+import com.timecho.model.SchemaAndData;
 import org.apache.commons.math3.util.Pair;
 import org.apache.iotdb.tsfile.file.metadata.enums.TSDataType;
 import org.apache.iotdb.tsfile.write.schema.MeasurementSchema;
@@ -24,8 +25,7 @@ public class SqliteDataLoader implements DataLoaderInterface {
         CMS_SCHEMA.add(new MeasurementSchema("`019`", TSDataType.TEXT));
     }
 
-    @Override
-    public List<Pair<Long, Map<String, Object>>> loadTimeSeries(LoadCommandOptions options) {
+    public SchemaAndData loadTimeSeries(LoadCommandOptions options) {
         File sqliteFile = new File(options.getSrcPath());
         String jdbcUrl = String.format("jdbc:sqlite:%s", sqliteFile.getPath());
 
@@ -69,6 +69,6 @@ public class SqliteDataLoader implements DataLoaderInterface {
         } catch (ClassNotFoundException | SQLException | ParseException e) {
             e.printStackTrace();
         }
-        return data;
+        return new SchemaAndData(CMS_SCHEMA, data);
     }
 }

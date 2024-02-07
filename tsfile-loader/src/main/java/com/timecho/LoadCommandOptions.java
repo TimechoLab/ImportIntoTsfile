@@ -16,9 +16,6 @@ public class LoadCommandOptions {
     @Parameter(names = {"loader", "-l"}, description = "数据加载器类的全限定名", required = true, order = 2)
     private String loader;
 
-    @Parameter(names = {"schemaPath", "-sp"}, description = "元数据属性路径，类的全限定名.属性名", required = true, order = 3)
-    private String schema;
-
     @Parameter(names = {"srcPath", "-s"}, description = "源文件路径", required = true, order = 4)
     private String srcPath;
 
@@ -49,10 +46,6 @@ public class LoadCommandOptions {
 
     public String getLoader() {
         return loader;
-    }
-
-    public String getSchema() {
-        return schema;
     }
 
     public String getSrcPath() {
