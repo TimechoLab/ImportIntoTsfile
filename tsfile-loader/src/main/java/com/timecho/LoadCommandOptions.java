@@ -26,7 +26,7 @@ public class LoadCommandOptions {
     private String deviceId;
 
     @Parameter(names = {"import", "-i"}, description = "是否导入到 IoTDB", required = false, order = 7)
-    private boolean isImport = true;
+    private boolean isImport = false;
 
     @Parameter(names = {"host", "-h"}, description = "IoTDB Host", order = 8)
     private String host = "127.0.0.1";
