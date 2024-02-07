@@ -40,6 +40,8 @@ public class LoadCommandOptions {
     @Parameter
     private List<String> mainParameters;
 
+    private Map<String, String> selfDefineOptions;
+
     public boolean isHelp() {
         return help;
     }
@@ -87,11 +89,14 @@ public class LoadCommandOptions {
     }
 
     public Map<String, String> getSelfDefineOptions() {
-        Map<String, String> selfDefineOptions = new HashMap<>();
-        assert mainParameters.size() % 2 == 0;
+        if (selfDefineOptions == null) {
+            selfDefineOptions = new HashMap<>();
 
-        for (int i = 0; i < mainParameters.size() / 2; i++) {
-            selfDefineOptions.put(mainParameters.get(i), mainParameters.get(i + 1));
+            assert mainParameters.size() % 2 == 0;
+
+            for (int i = 0; i < mainParameters.size() / 2; i++) {
+                selfDefineOptions.put(mainParameters.get(i), mainParameters.get(i + 1));
+            }
         }
 
         return selfDefineOptions;
