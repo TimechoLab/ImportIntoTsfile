@@ -13,7 +13,7 @@ public class LoadCommandOptions {
     @Parameter(names = {"help"}, description = "查看帮助信息", help = true, order = 1)
     private boolean help;
 
-    @Parameter(names = {"loader", "-l"}, description = "数据加载器类的全限定名", required = true, order = 2)
+    @Parameter(names = {"loader", "-l"}, description = "数据加载器类的全限定名", order = 2)
     private String loader;
 
     @Parameter(names = {"srcPath", "-s"}, description = "源文件路径", required = true, order = 4)

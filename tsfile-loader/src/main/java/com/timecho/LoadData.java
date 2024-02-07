@@ -15,8 +15,12 @@ import org.apache.iotdb.tsfile.write.schema.MeasurementSchema;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoadData {
+    private static final Logger LOGGER = Logger.getLogger(LoadData.class.getName());
+
     public static void main(String[] args) throws Exception {
         LoadCommandOptions options = new LoadCommandOptions();
         JCommander commander = JCommander.newBuilder()
@@ -26,6 +30,11 @@ public class LoadData {
 
         if (options.isHelp()) {
             commander.usage();
+            return;
+        }
+
+        if (options.getLoader() == null) {
+            LOGGER.log(Level.WARNING, "Option `loader` or `-l` is required!!!");
             return;
         }
 
